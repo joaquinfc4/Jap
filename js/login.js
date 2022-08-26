@@ -23,7 +23,7 @@ function password_completo() {
 
 document.getElementById("ingresar_Boton").addEventListener("click", function() {
     if(password_completo() && email_completo() ){
-        return window.location = "portada.html";
+        return window.location = "login.html";
     } else {
         alert("Verifique que los dos campos estan completos")
     }
