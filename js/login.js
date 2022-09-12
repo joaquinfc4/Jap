@@ -23,9 +23,16 @@ function password_completo() {
 
 document.getElementById("ingresar_Boton").addEventListener("click", function() {
     if(password_completo() && email_completo() ){
-        return window.location = "login.html";
+        
+        let email_usr = document.getElementById("Email").value;
+        
+        localStorage.setItem("email", email_usr)
+
+        window.location = "login.html";
+
     } else {
         alert("Verifique que los dos campos estan completos")
     }
     
 });
+
