@@ -1,22 +1,44 @@
 let imagenes = "";
 
- function mostrarComentarios(arrayObjetosComment){
-    
+
+
+function mostrarProdRelacionados(ProdRelacionados) {
+    for (const prodRelacionado of ProdRelacionados) {
+        let contenido = ""
+        contenido = `
+
+                <div onclick="setProdID(${prodRelacionado.id})" class="card  mx-1 cursor-active" style="width: 18rem;">
+                 <img src="${prodRelacionado.image}" class="card-img-top">
+                    <div class="card-body">
+                        <p class="card-text">${prodRelacionado.name}</p>
+                    </div>
+        `
+        document.getElementById("prodRelacionados").innerHTML += contenido;
+    }
+}
+
+function setProdID(id) {
+    localStorage.setItem("prodID", id);
+    window.location = "product-info.html"
+}
+
+function mostrarComentarios(arrayObjetosComment) {
+
     let scoreTotal = ""
     let estrellasAmarillas = "";
     let estrellasVacias = ""
     for (const objetoComment of arrayObjetosComment) {
         let puntaje = objetoComment.score;
-        
-        
+
+
         let resultado = 5 - puntaje;
-        estrellasAmarillas =  `<span class="fa fa-star checked"></span>`.repeat(puntaje)
+        estrellasAmarillas = `<span class="fa fa-star checked"></span>`.repeat(puntaje)
         estrellasVacias = `<span class="fa fa-star"></span>`.repeat(resultado)
-    
+
         scoreTotal = estrellasAmarillas + estrellasVacias;
 
         let contenido = ""
-        
+
         contenido = `
         
             <p class="list-group-item"><span class="fw-bold"> ${objetoComment.user}</span> - ${objetoComment.dateTime} - 
@@ -27,18 +49,18 @@ let imagenes = "";
     `
         document.getElementById("comentarios").innerHTML += contenido;
     }
-    
-    
-    
-    
+
+
+
+
 }
- 
+
 
 
 
 function mostrarImagenes(arrayImagenes) {
     for (const imagen of arrayImagenes) {
-        imagenes = `<img src="${imagen}" width="350px class="img-thumbnail">`;
+        imagenes = `<img src="${imagen}" class="img-thumbnail"  width="350px" height="350px">`;
 
         document.getElementById("cont_img").innerHTML += imagenes;
 
@@ -48,7 +70,7 @@ function mostrarImagenes(arrayImagenes) {
 
 
 function mostrarInfo(prod) {
-    
+
     let contenido = ""
 
     contenido = `<h4 class="navbar navbar-expand-lg">${prod.name}</h4><hr>
@@ -75,7 +97,7 @@ function mostrarInfo(prod) {
             </div>
         </div>
     </div>
-    <br>
+    
     `
 
     document.getElementById("info").innerHTML += contenido;
@@ -112,16 +134,16 @@ document.addEventListener("DOMContentLoaded", function () {
         prodImages = resultado.data.images;
         mostrarInfo(prodInfo);
         mostrarImagenes(prodImages);
-        
-        
+
+
 
         getJSONData(PRODUCT_INFO_COMMENTS_URL + localStorage.getItem('prodID') + EXT_TYPE).then(resultado => {
             commentInfo = resultado.data;
-            
+
             mostrarComentarios(commentInfo);
-            
+
             let comentar = ""
-            comentar =  `<h4 class="navbar navbar-expand-lg">Comentar</h4><br>
+            comentar = `<h4 class="navbar navbar-expand-lg">Comentar</h4><br>
             Tu opinion <br>
             <textarea rows="2" cols="40"></textarea><br>
             Tu puntuación <br>
@@ -132,14 +154,19 @@ document.addEventListener("DOMContentLoaded", function () {
               <option>4</option>
               <option>5</option>
             </select><br>
-            <button class="btn btn-dark">Enviar</button>`
+            <button class="btn btn-primary">Enviar</button>`
 
             document.getElementById("comentar").innerHTML += comentar;
+
+
+            mostrarProdRelacionados(prodInfo.relatedProducts);
+           
+
         })
-        
+
     })
 
-    
+
 
 })
 

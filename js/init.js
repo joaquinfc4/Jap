@@ -41,6 +41,35 @@ let getJSONData = function(url){
     });
 }
 
-  document.getElementById("usr").innerHTML += localStorage.getItem('email');
+  function miCarrito(){
+    window.location = "cart.html"
+  }
 
-  
+  function miPerfil(){
+    window.location = "my-profile.html"
+  }
+
+  function cerrarSesion(){
+    window.location = "index.html"
+    localStorage.removeItem('email');
+  }
+
+  function dropdown(){
+    let contenido = ""
+
+    contenido = `<div class="dropdown">
+    <a class="dropdown-toggle text-light bg-dark" href="#" id="dropdownButton" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="text-wrap">
+        ${localStorage.getItem('email')}
+        </span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="dropdownButton" data-bs-toggle="collapse">
+        <li><a onclick="miCarrito()" class="dropdown-item" href="#">Mi carrito</a></li>
+        <li><a onclick="miPerfil()" class="dropdown-item" href="#">Mi perfil</a></li>
+        <li><a onclick="cerrarSesion()" class="dropdown-item" href="#">Cerrar sesión</a></li>
+    </ul>
+</div>`
+    document.getElementById("usr").innerHTML += contenido;
+  }
+
+  dropdown();
