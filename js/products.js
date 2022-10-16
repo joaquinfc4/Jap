@@ -1,6 +1,7 @@
 let listaProductos = [];
 let min = undefined;
 let max = undefined;
+let search = undefined;
 
 function setProdID(id) {
     localStorage.setItem("prodID", id);
@@ -16,25 +17,29 @@ function mostrarProductos(arrayProductos) {
             /* ((min == undefined && max == undefined) || (producto.cost >= min && producto.cost <= max) ||
             (producto.cost >= min && max == undefined) || (min == undefined && producto.cost <= max))  */
 
-            let contenido = ""
-            contenido = `
-                <div onclick="setProdID(${producto.id})" class="list-group-item list-group-item-action cursor-active">
-                    <div class="row">
-                      <div class="col-3">
-                          <img src="${producto.image}" alt="${producto.description}" class="img-thumbnail">
-                      </div>
-                        <div class="col">
-                         <div class="d-flex w-100 justify-content-between">
-                              <h4 class="mb-1">${producto.name} - ${producto.currency} ${producto.cost} </h4>
-                             <small class="text-muted">${producto.soldCount} artículos</small>
+            if (search == undefined || search == "" || producto.name.toLowerCase().includes(search) || 
+            producto.description.toLowerCase().includes(search)) {
+
+                let contenido = ""
+                contenido = `
+                    <div onclick="setProdID(${producto.id})" class="list-group-item list-group-item-action cursor-active">
+                        <div class="row">
+                          <div class="col-3">
+                              <img src="${producto.image}" alt="${producto.description}" class="img-thumbnail">
+                          </div>
+                            <div class="col">
+                             <div class="d-flex w-100 justify-content-between">
+                                  <h4 class="mb-1">${producto.name} - ${producto.currency} ${producto.cost} </h4>
+                                 <small class="text-muted">${producto.soldCount} artículos</small>
+                             </div>
+                             <p class="mb-1">${producto.description}</p>
                          </div>
-                         <p class="mb-1">${producto.description}</p>
                      </div>
                  </div>
-             </div>
-                `;
-                
-                document.getElementById("listado").innerHTML += contenido;
+                    `;
+                    
+                    document.getElementById("listado").innerHTML += contenido; 
+            } 
         }
 
 
@@ -111,5 +116,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     })
   
-    
+    document.getElementById("buscador").addEventListener("input", function (){
+        search = document.getElementById("buscador").value;
+        mostrarProductos(listaProductos);
+    })
 })
