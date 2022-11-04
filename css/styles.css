@@ -1,6 +1,8 @@
 .jumbotron,
 .card-body,
-.container,
+.container {
+  max-width: 960px;
+}
 .site-header {
   font-family: 'Raleway', serif !important;
 }
@@ -189,3 +191,15 @@ a.custom-card:hover {
   color: orange;
 }
 
+.description-cost {
+  margin-top: -1rem !important;
+  margin-bottom: 0.10rem !important;
+}
+
+.block {
+  display: inline;
+}
+
+.red-link {
+  color: #dc3545
+}
