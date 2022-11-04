@@ -42,28 +42,28 @@
     </div>
 
     <div class="container">
-      <div class="row">
+      <form class="row g-3 needs-validation" method="get" id="formulario" novalidate>
 
         <div class="mt-2 mb-3">
           <h4>Tipo de envío</h4>
         </div>
 
         <div>
-          <input class="form-check-input" type="radio" name="envio" id="premium" checked>
+          <input class="form-check-input" type="radio" name="envio" id="premium" oninput="costos()" required>
           <label class="form-check-label" for="premium">
             Premium 2 a 5 días (15%)
           </label>
         </div>
 
         <div>
-          <input class="form-check-input" type="radio" name="envio" id="express">
+          <input class="form-check-input" type="radio" name="envio" id="express" oninput="costos()">
           <label class="form-check-label" for="express">
             Express 5 a 8 días (7%)
           </label>
         </div>
 
         <div>
-          <input class="form-check-input" type="radio" name="envio" id="standard">
+          <input class="form-check-input" type="radio" name="envio" id="standard" oninput="costos()">
           <label class="form-check-label" for="standard">
             Standard 12 a 15 días (5%)
           </label>
@@ -76,19 +76,39 @@
         <div class="col-6">
 
           <div class="row mb-3">
+
             <div class="col-6">
-              Calle
-              <input type="text" class="form-control">
+              <label class="form-label" for="calle-id">Calle</label>
+              <input type="text" class="form-control" id="calle-id" required>
+              <div class="valid-feedback">
+                Todo ok
+              </div>
+              <div class="invalid-feedback">
+                Ingrese una calle
+              </div>
             </div>
 
             <div class="col-3">
-              Número
-              <input type="text" class="form-control">
+              <label class="form-label" for="numero-id">Número</label>
+              <input type="text" class="form-control" id="numero-id" required>
+              <div class="valid-feedback">
+                Todo ok
+              </div>
+              <div class="invalid-feedback">
+                Ingrese un número
+              </div>
             </div>
 
-            <div class="col-6 mt-3">
-              Esquina
-              <input type="text" class="form-control">
+
+            <div class="col-6 mt-3 text-start">
+              <label class="form-label" for="esquina-id">Esquina</label>
+              <input type="text" class="form-control" id="esquina-id" required>
+              <div class="valid-feedback">
+                Todo ok
+              </div>
+              <div class="invalid-feedback">
+                Ingrese una esquina
+              </div>
             </div>
           </div>
 
@@ -96,12 +116,120 @@
         </div>
 
 
+        <hr>
+        <h4>Costos</h4>
 
+        <div id="costos"></div>
 
-
+        <hr>
+        <h4>Formas de pago</h4>
+        
+        <div class="col-sm-12">
+          
+          <span id="forma-de-pago">No ha seleccionado</span>
+          <button type="button" class="btn btn-link ps-0" data-bs-toggle="modal"
+            data-bs-target="#exampleModal" id="btn-seleccionar" required>Seleccionar</button>
+            <label class="invalid-feedback" id="seleccionar">
+              Debe seleccionar una forma de pago
+            </label>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Forma de pago</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                  </div>
+                  <div class="modal-body">
+                    
+                      <input class="form-check-input" type="radio" name="tipoDePago" id="tarjeta-credito"
+                      onclick="disableRadio()" form="formulario" required>
+                      <label class="form-check-label" for="tarjeta-credito" id="tarjeta-credito-label">
+                        Tarjeta de credito
+                      </label>
+                      <hr>
+        
+                      <div class="row mb-3">
+                        <div class="col-6">
+                          <label class="form-label" for="num-tarjeta" id="num-tarjeta-label">Numero de tarjeta</label>
+                          <input type="text" class="form-control" id="num-tarjeta" form="formulario" required>
+                          <div class="valid-feedback">
+                            Todo ok
+                          </div>
+                          <div class="invalid-feedback">
+                            Ingrese un número de tarjeta
+                          </div>
+                        </div>
+        
+                        <div class="col-4">
+                          <label class="form-label" for="cod-seg">Código de seg.</label>
+                          <input type="text" class="form-control" id="cod-seg" form="formulario" required>
+                          <div class="valid-feedback">
+                            Todo ok
+                          </div>
+                          <div class="invalid-feedback">
+                            Ingrese un codigo de seguridad
+                          </div>
+                        </div>
+        
+                        <div class="col-6 mt-3">
+                          <label class="form-label" for="vencimiento">Vencimiento(MM/AA)</label>
+                          <input type="text" class="form-control" id="vencimiento" form="formulario" required>
+                          <div class="valid-feedback">
+                            Todo ok
+                          </div>
+                          <div class="invalid-feedback">
+                            Ingrese un vencimiento(MM/AA)
+                          </div>
+        
+                        </div>
+                      </div>
+        
+        
+        
+        
+                      <div>
+                        <input class="form-check-input" type="radio" name="tipoDePago" id="transferencia-bancaria"
+                          onclick="disableRadio()" form="formulario">
+                        <label class="form-check-label" for="transferencia-bancaria" id="transferencia-bancaria-label">
+                          Transferencia bancaria
+                        </label>
+                        <hr>
+        
+                        <div class="col-6 mb-3">
+                          Número de cuenta
+                          <input type="text" class="form-control" id="num-cuenta" form="formulario" required>
+                        </div>
+        
+        
+                      </div>
+                    
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+        
+                    </div>
+                    
+                    
+                  </div>
+                  
+                </div>
+                
+              </div>
+              
+            </div>
       </div>
-    </div>
+       
 
+          <div class="col-8 mx-auto d-grid gap-2">
+            <button type="submit" class="btn btn-primary">Finalizar compra</button>
+          </div>
+         
+          </form>
+
+    </div>
+    <!-- Modal -->
+    
+
+   
 
     </div>
   </main>
@@ -123,6 +251,7 @@
       <div></div>
     </div>
   </div>
+
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/cart.js"></script>
