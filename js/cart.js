@@ -5,44 +5,131 @@ let costoenvio = undefined;
 let total = undefined;
 let tarjetaCred = document.getElementById("tarjeta-credito");
 let transBanc = document.getElementById("transferencia-bancaria");
-/* let tarjetaCredLabel = document.getElementById("tarjeta-credito-label");
-let transBancLabel = document.getElementById("transferencia-bancaria-label"); */
-
-
+let tarjetaCredLabel = document.getElementById("tarjeta-credito-label");
+let transBancLabel = document.getElementById("transferencia-bancaria-label");
+let numCuenta = document.getElementById("num-cuenta");
+let numTarjeta = document.getElementById("num-tarjeta")
+let codSeg = document.getElementById("cod-seg")
+let vencimiento = document.getElementById("vencimiento")
+let seleccionar = document.getElementById("seleccionar")
 
 
 
 formulario.addEventListener('submit', (event) => {
+  
   if (!formulario.checkValidity()) {
-      
-      event.preventDefault();
-      event.stopPropagation();
+    seleccionar.classList.add("block")
+    event.preventDefault();
+    event.stopPropagation();
+  } else {
+    alert("¡Has comprado con éxito!")
   }
 
   formulario.classList.add('was-validated');
+  
 });
 
-/* function showError() {
-  
-  if (!tarjetaCred.checked && !transBanc.checked) {
-      tarjetaCred.setCustomValidity("a")
-  } else if (tarjetaCred.checked || transBanc.checked) {
-      tarjetaCred.setCustomValidity("")
-  }
 
-  if (!tarjetaCred.validity.valid) {
-      tarjetaCred.classList.add("block");
-      tarjetaCredLabel.classList.add("red-link");
-      transBanc.classList.add("block");
-      transBancLabel.classList.add("red-link");
-  } else if (tarjetaCred.validity.valid) {
-      tarjetaCred.classList.remove("block");
-      tarjetaCredLabel.classList.remove("red-link");
+function showError() {
+  if (tarjetaCred.checked) {
+
+    if (numTarjeta.value != "" && codSeg.value != "" && vencimiento.value != "") {
+      document.getElementById("invalid-tarj-cred").classList.remove("block");
+    } else {
+      document.getElementById("invalid-tarj-cred").classList.add("block");
+    }
+    
+    numCuenta.classList.remove("red-border");
+    numCuenta.classList.remove("green-border");
+    seleccionar.classList.remove("block")
+
+  } else if (transBanc.checked) {
+    
+    numTarjeta.classList.remove("red-border");
+    numTarjeta.classList.remove("green-border");
+    codSeg.classList.remove("red-border");
+    codSeg.classList.remove("green-border");
+    vencimiento.classList.remove("red-border");
+    vencimiento.classList.remove("green-border");
+    seleccionar.classList.remove("block")
+    document.getElementById("invalid-tarj-cred").classList.remove("block");
   }
-} */
+}
+
+
+function vaciarValueNoSeleccionado() {
+  if (transBanc.checked) {
+    numTarjeta.value = "";
+    codSeg.value = "";
+    vencimiento.value = "";
+  }
+  else if (tarjetaCred.checked) {
+    numCuenta.value = "";
+  }
+}
+
+function noVacioNumTarjeta() {
+  showError()
+  if (numTarjeta.value == "") {
+    numTarjeta.classList.remove("green-border")
+    numTarjeta.classList.add("red-border")
+    document.getElementById("invalid-num-tarjeta").classList.add("block")
+  }
+  else if (numTarjeta.value != "") {
+    numTarjeta.classList.remove("red-border");
+    numTarjeta.classList.add("green-border");
+    document.getElementById("invalid-num-tarjeta").classList.remove("block")
+  }
+}
+
+function noVacioCodSeg() {
+  showError()
+  if (codSeg.value == "") {
+    codSeg.classList.remove("green-border")
+    codSeg.classList.add("red-border")
+    document.getElementById("invalid-cod-seg").classList.add("block")
+  }
+  else if (codSeg.value != "") {
+    codSeg.classList.remove("red-border");
+    codSeg.classList.add("green-border");
+    document.getElementById("invalid-cod-seg").classList.remove("block")
+  }
+}
+
+function noVacioVencimiento() {
+  showError()
+  if (vencimiento.value == "") {
+    vencimiento.classList.remove("green-border")
+    vencimiento.classList.add("red-border")
+    document.getElementById("invalid-venc").classList.add("block")
+  }
+  else if (vencimiento.value != "") {
+    vencimiento.classList.remove("red-border");
+    vencimiento.classList.add("green-border");
+    document.getElementById("invalid-venc").classList.remove("block")
+  }
+}
+
+function noVacioNumCuenta() {
+  showError()
+  if (numCuenta.value == "") {
+    numCuenta.classList.remove("green-border")
+    numCuenta.classList.add("red-border")
+    document.getElementById("invalid-num-cuenta").classList.add("block")
+  }
+  else if (numCuenta.value != "") {
+    numCuenta.classList.remove("red-border");
+    numCuenta.classList.add("green-border");
+    document.getElementById("invalid-num-cuenta").classList.remove("block")
+  }
+}
+
+
 
 ;
-function disableRadio(){
+function disableRadio() {
+  showError()
+  vaciarValueNoSeleccionado()
   
   if (tarjetaCred.checked) {
     document.getElementById("num-tarjeta").disabled = false;
@@ -51,6 +138,10 @@ function disableRadio(){
 
     document.getElementById("num-cuenta").disabled = true;
     document.getElementById("forma-de-pago").innerHTML = "Tarjeta de crédito"
+    document.getElementById("invalid-num-cuenta").classList.remove("block")
+    noVacioVencimiento()
+    noVacioCodSeg()
+    noVacioNumTarjeta()
 
   } else if (transBanc.checked) {
     document.getElementById("num-cuenta").disabled = false;
@@ -59,6 +150,10 @@ function disableRadio(){
     document.getElementById("cod-seg").disabled = true;
     document.getElementById("vencimiento").disabled = true;
     document.getElementById("forma-de-pago").innerHTML = "Transferencia bancaria"
+    document.getElementById("invalid-venc").classList.remove("block")
+    document.getElementById("invalid-cod-seg").classList.remove("block")
+    document.getElementById("invalid-num-tarjeta").classList.remove("block")
+    noVacioNumCuenta()
   }
 }
 
@@ -66,7 +161,7 @@ function costos() {
   let premium = document.getElementById("premium")
   let express = document.getElementById("express")
   let standard = document.getElementById("standard")
-  
+
   if (premium.checked) {
 
     costoenvio = subTotal * 0.15
@@ -79,7 +174,7 @@ function costos() {
     document.getElementById("costo-envio").innerHTML = costoenvio;
     document.getElementById("total").innerHTML = subTotal + costoenvio;
 
-  } else if (standard.checked){
+  } else if (standard.checked) {
 
     costoenvio = subTotal * 0.05
     document.getElementById("costo-envio").innerHTML = costoenvio;
