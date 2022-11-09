@@ -1,8 +1,6 @@
 .jumbotron,
 .card-body,
-.container {
-  max-width: 960px;
-}
+.container,
 .site-header {
   font-family: 'Raleway', serif !important;
 }
