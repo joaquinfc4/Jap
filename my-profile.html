@@ -52,8 +52,65 @@
   </nav>
   <main>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+
+      <div class="mx-5 mb-5 mt-4">
+        <h4>Perfil</h4>
+      </div>
+      
+
+<form class="row g-3 needs-validation"  id="form" novalidate>
+      <div class="col-9">
+        <hr>
+        <div class="row mb-5 ms-5">
+
+          <div class="col-6">
+            <label>Primer nombre*</label>
+            <input type="text" class="form-control ms-2" id="primer-nombre" required>
+            <div class="invalid-feedback">
+              Ingrese un nombre
+            </div>
+          </div>
+
+          <div class="col-6">
+            <label>Segundo nombre</label>
+            <input type="text" class="form-control  ms-2" id="segundo-nombre">
+          </div>
+
+
+          <div class="col-6 mt-3 text-start">
+            <label>Primer apellido*</label>
+            <input type="text" class="form-control  ms-2" id="primer-apellido" required>
+            <div class="invalid-feedback">
+              Ingrese un apellido
+            </div>
+          </div>
+
+          <div class="col-6 mt-3 text-start">
+            <label>Segundo apellido</label>
+            <input type="text" class="form-control  ms-2" id="segundo-apellido">
+          </div>
+
+          <div class="col-6 mt-3 text-start">
+            <label>E-mail*</label>
+            <input type="text" class="form-control  ms-2" id="e-mail" required>
+            <div class="invalid-feedback">
+              Ingrese un E-mail
+            </div>
+          </div>
+
+          <div class="col-6 mt-3 text-start">
+            <label>Teléfono de contacto</label>
+            <input type="number" class="form-control  ms-2" id="telefono-contacto">
+          </div>
+
+        </div>
+        
+        
+          <hr>
+          <div>
+            <input type="button" class="btn btn-primary mx-5 my-5" id="guardar-cambios" value="Guardar cambios"></input>
+          </div>
+        </form>
       </div>
     </div>
   </main>
